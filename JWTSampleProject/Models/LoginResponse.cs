@@ -1,4 +1,4 @@
-﻿namespace JWTSampleProject.Controllers
+﻿namespace JWTSampleProject.Models
 {
     internal class LoginResponse
     {

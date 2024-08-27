@@ -1,3 +1,4 @@
+using JWTSampleProject.Models;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
