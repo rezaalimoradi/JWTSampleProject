@@ -26,7 +26,7 @@ namespace JWTSampleProject.Controllers
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var response = new Dictionary<string, string>();
-            if (!(request.Email == "admin@gmail.com" && request.Password == "Admin@123"))
+            if (!(request.Email == "admin@gmail.com" && request.Password == "123"))
             {
                 response.Add("Error", "Invalid username or password");
                 return BadRequest(response);
