@@ -21,16 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//options.UseSqlServer(builder.Configuration["ConnectionStrings"], sqloptions =>
-//{
-//    sqloptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(15), errorNumbersToAdd: null);
-//})
-
-//);
-
 var app = builder.Build();
-//var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
