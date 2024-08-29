@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Reflection;
 
-namespace JWTSampleProject
+namespace JWTSampleProject.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext , IAppDbContext
     {
         public DbSet<Product> Products { get; set; }
 

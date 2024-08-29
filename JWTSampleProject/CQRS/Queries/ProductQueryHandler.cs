@@ -1,21 +1,27 @@
-﻿using JWTSampleProject.CQRS.InputModel;
-using JWTSampleProject.Infrastructure.Base;
+﻿using AutoMapper;
+using JWTSampleProject.Context;
+using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class ProductQueryHandler : IRequestHandler<ProductQueryInputModel, string>
+    public class ProductQueryHandler : IRequestHandler<ProductQueryInputModel, Product>
     {
-        public async Task<string> Handle(ProductQueryInputModel request, CancellationToken cancellationToken)
+        private readonly IAppDbContext _context;
+        private readonly IMapper _mapper;
+
+        public ProductQueryHandler(IAppDbContext context, IMapper mapper)
         {
-            await Task.FromResult(0);
-            var product = new Product();
-            product.ProductName = request.ProductName;
-
-
-            return "Hello" + request.ProductName;
+            _context = context;
+            _mapper = mapper;
+        }
+        public async Task<Product> Handle(ProductQueryInputModel request, CancellationToken cancellationToken)
+        {
+            var newProduct = _mapper.Map<ProductQueryInputModel, Product>(request);
+            await _context.Products.AnyAsync();
+            return newProduct;
         }
     }
 }

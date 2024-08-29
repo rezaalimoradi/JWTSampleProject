@@ -1,8 +1,8 @@
 
 
 using FluentValidation;
-using JWTSampleProject;
 using JWTSampleProject.Behaviors;
+using JWTSampleProject.Context;
 using JWTSampleProject.Models;
 using MediatR;
 using Microsoft.Data.SqlClient;
@@ -23,8 +23,9 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ProductBehaviors<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<IAppDbContext,AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings"));
 
