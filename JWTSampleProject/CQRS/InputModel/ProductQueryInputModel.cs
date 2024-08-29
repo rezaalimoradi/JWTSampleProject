@@ -1,5 +1,4 @@
-﻿using JWTSampleProject.Infrastructure.Base;
-using JWTSampleProject.Models;
+﻿using JWTSampleProject.Models;
 using MediatR;
 
 namespace JWTSampleProject.CQRS.InputModel

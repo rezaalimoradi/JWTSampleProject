@@ -1,8 +1,6 @@
-﻿using JWTSampleProject.Infrastructure.Base;
-
-namespace JWTSampleProject.Models
+﻿namespace JWTSampleProject.Models
 {
-    public class Product : IAPIResult<Product>
+    public class Product
     {
         public Guid Id { get; set; }
         public bool IsAvailable { get; set; }
