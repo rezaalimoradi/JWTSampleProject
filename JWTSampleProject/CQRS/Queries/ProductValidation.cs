@@ -7,7 +7,7 @@ namespace JWTSampleProject.CQRS.Queries
     {
         public ProductValidation() 
         {
-            RuleFor(x => x.ProductName).NotEmpty().WithMessage("نام چرا خالیه کون گشاد");
+            RuleFor(x => x.ProductName).NotEmpty().WithMessage("Name Is Empty");
         }
     }
 }

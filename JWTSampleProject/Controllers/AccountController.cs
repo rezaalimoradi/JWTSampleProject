@@ -1,3 +1,4 @@
+using Azure;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
 using MediatR;
@@ -36,14 +37,28 @@ namespace JWTSampleProject.Controllers
             });
 
 
+        [HttpGet("[action]")]
+        public async Task<User> Login([FromBody] UserQueryInputModel inputModel)
+        {
+            var obj = await _mediator.Send(inputModel);
+            User loginRequest = new User{
+                Email = obj.Email,
+                PassWord = obj.FirstName,
+                Role = obj.Role
+                
+            };
+            this.Login(loginRequest);
+            return obj;
+        }
+
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] User request)
         {
             var response = new Dictionary<string, string>();
-            if (!(request.Email == "admin@gmail.com" && request.Password == "123"))
+            if (!(request.Role == "admin"))
             {
-                response.Add("Error", "Invalid username or password");
+                response.Add("Error", "Invalid username or password Or Role");
                 return BadRequest(response);
             }
 
