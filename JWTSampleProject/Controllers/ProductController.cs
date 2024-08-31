@@ -25,7 +25,6 @@ namespace JWTSampleProject.Controllers
                 StatusCode = true
             });
 
-        [Authorize]
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
