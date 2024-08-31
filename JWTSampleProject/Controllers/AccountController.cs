@@ -1,4 +1,4 @@
-using Azure;
+﻿using Azure;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
 using MediatR;
@@ -27,7 +27,11 @@ namespace JWTSampleProject.Controllers
             _mediator = mediator;
         }
 
-
+        /// <summary>
+        /// مشاهده کاربران
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
             Ok(new
@@ -36,7 +40,11 @@ namespace JWTSampleProject.Controllers
                 StatusCode = true
             });
 
-
+        /// <summary>
+        /// لاگین
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<User> Login([FromBody] UserQueryInputModel inputModel)
         {
@@ -50,7 +58,11 @@ namespace JWTSampleProject.Controllers
             this.Login(loginRequest);
             return obj;
         }
-
+        /// <summary>
+        /// لاگین
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Login")]
         public IActionResult Login([FromBody] User request)
@@ -70,7 +82,12 @@ namespace JWTSampleProject.Controllers
                 UserName = request.Email
             });
         }
-
+        /// <summary>
+        /// ساخت توکن
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         private string GenerateJwtToken(string username, List<string> roles)
         {
             var claims = new List<Claim>
