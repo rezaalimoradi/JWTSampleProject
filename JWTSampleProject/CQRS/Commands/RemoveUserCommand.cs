@@ -23,7 +23,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
             if (obj != null)
             {
-                _appDbContext.Products.Remove(obj);
+                _appDbContext.Users.Remove(obj);
                 await _appDbContext.SaveChangesAsync();
 
             }
