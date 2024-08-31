@@ -3,9 +3,9 @@ using MediatR;
 
 namespace JWTSampleProject.CQRS.InputModel
 {
-    public class UserQueryInputModel : IRequest<List<User>>
+    public class UserByIdQueryInputModel : IRequest<User>
     {
-        
 
+        public Guid Id { get; set; }
     }
 }

@@ -43,6 +43,20 @@ namespace JWTSampleProject.Controllers
 
 
         /// <summary>
+        /// مشاهده کاربر
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
+            Ok(new
+            {
+                data = await _mediator.Send(inputModel),
+                StatusCode = true
+            });
+
+
+        /// <summary>
         /// افزودن کاربر
         /// </summary>
         /// <param name="command"></param>
@@ -91,7 +105,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [HttpGet("[action]")]
-        public async Task<User> Login([FromBody] UserQueryInputModel inputModel)
+        public async Task<User> Login([FromBody] UserByIdQueryInputModel inputModel)
         {
             var obj = await _mediator.Send(inputModel);
             User loginRequest = new User{

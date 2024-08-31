@@ -7,21 +7,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class UserQueryHandler : IRequestHandler<UserQueryInputModel, List<User>>
+    public class UserByIdQueryHandler : IRequestHandler<UserByIdQueryInputModel, User>
     {
         private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserQueryHandler(IAppDbContext context, IMapper mapper)
+        public UserByIdQueryHandler(IAppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<User>> Handle(UserQueryInputModel request, CancellationToken cancellationToken)
-        {
-            var user = await _context.Users.ToListAsync();
 
-            var result = _mapper.Map<List<User>>(user);
+        async Task<User> IRequestHandler<UserByIdQueryInputModel, User>.Handle(UserByIdQueryInputModel request, CancellationToken cancellationToken)
+        {
+            var user = await _context.Users.FindAsync(request.Id, cancellationToken);
+
+            var result = _mapper.Map<User>(user);
 
             return result;
         }
