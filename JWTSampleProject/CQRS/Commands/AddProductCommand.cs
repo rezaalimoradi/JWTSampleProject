@@ -18,14 +18,17 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
         public async Task Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            var product = new Product { 
-                Email = request.Email ,
-                Id = request.Id ,
-                IsAvailable = request.IsAvailable ,
-                Phone = request.Phone ,
-                ProductDate = request.ProductDate ,
-                ProductName = request.ProductName
-            };    
+
+            var product = _mapper.Map<Product>(request);
+
+            //var product = new Product { 
+            //    Email = request.Email ,
+            //    Id = request.Id ,
+            //    IsAvailable = request.IsAvailable ,
+            //    Phone = request.Phone ,
+            //    ProductDate = request.ProductDate ,
+            //    ProductName = request.ProductName
+            //};    
 
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
