@@ -25,7 +25,12 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             if (res != null)
             {
                 var product = _mapper.Map<Product>(res);
-                product.ProductName = request.productName;
+                product.ProductName = request.ProductName;
+                product.IsAvailable = request.IsAvailable;
+                product.Email = request.Email;
+                product.Phone = request.Phone;
+                product.ProductDate = request.ProductDate;
+
                 await _appDbContext.SaveChangesAsync();
             }
             else
@@ -39,6 +44,10 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
     public class UpdateProductCommand : IRequest
     {
         public Guid Id { get; set; }
-        public string productName { get; set; }
+        public bool IsAvailable { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string ProductName { get; set; }
+        public DateTime ProductDate { get; set; }
     }
 }
