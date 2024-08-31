@@ -21,7 +21,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
         public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var response = new Dictionary<string, string>();
-            var res = _appDbContext.Products.Find(request.productName);
+            var res = _appDbContext.Products.Find(request.Id);
             if (res != null)
             {
                 var product = _mapper.Map<Product>(res);
@@ -38,6 +38,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
     public class UpdateProductCommand : IRequest
     {
+        public Guid Id { get; set; }
         public string productName { get; set; }
     }
 }
