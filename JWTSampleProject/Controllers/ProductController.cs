@@ -1,4 +1,4 @@
-using JWTSampleProject.CQRS.InputModel;
+﻿using JWTSampleProject.CQRS.InputModel;
 using KarafariniPlans.Core.Services.Commands.GeneralData;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +16,11 @@ namespace JWTSampleProject.Controllers
         {
             _mediator = mediator;
         }
-
+        /// <summary>
+        /// مشاهده همه محصولات
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProducts([FromBody] ProductQueryInputModel inputModel) =>
             Ok(new
@@ -24,7 +28,11 @@ namespace JWTSampleProject.Controllers
                 data = await _mediator.Send(inputModel),
                 StatusCode = true
             });
-
+        /// <summary>
+        /// افزودن محصول
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
@@ -33,7 +41,11 @@ namespace JWTSampleProject.Controllers
 
             return Ok();
         }
-
+        /// <summary>
+        /// ویرایش محصول
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
@@ -42,7 +54,11 @@ namespace JWTSampleProject.Controllers
 
             return Ok();
         }
-
+        /// <summary>
+        /// حذف محصول
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
