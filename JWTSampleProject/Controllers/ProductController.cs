@@ -34,5 +34,23 @@ namespace JWTSampleProject.Controllers
 
             return Ok();
         }
+
+        [HttpPost("UpdateProduct")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
+        [HttpPost("RemoveProduct")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
     }
 }
