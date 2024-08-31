@@ -1,6 +1,7 @@
 ﻿using Azure;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
+using KarafariniPlans.Core.Services.Commands.GeneralData;
 using MediatR;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,50 @@ namespace JWTSampleProject.Controllers
                 data = await _mediator.Send(inputModel),
                 StatusCode = true
             });
+
+
+        /// <summary>
+        /// افزودن کاربر
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("AddUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddUser([FromBody] AddUserCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// ویرایش کاربر
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+        /// <summary>
+        /// حذف کاربر
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("RemoveUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> RemoveProduct([FromBody] RemoveUserCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
 
         /// <summary>
         /// لاگین
