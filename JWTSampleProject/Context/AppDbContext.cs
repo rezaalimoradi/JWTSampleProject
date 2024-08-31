@@ -8,6 +8,7 @@ namespace JWTSampleProject.Context
     public class AppDbContext : DbContext , IAppDbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
         {

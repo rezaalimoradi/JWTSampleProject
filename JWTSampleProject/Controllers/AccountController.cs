@@ -1,4 +1,6 @@
+using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,12 +17,25 @@ namespace JWTSampleProject.Controllers
 
         private readonly ILogger<AccountController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IMediator _mediator;
 
-        public AccountController(ILogger<AccountController> logger, IConfiguration configuration)
+        public AccountController(ILogger<AccountController> logger, IConfiguration configuration,IMediator mediator)
         {
             _logger = logger;
             _configuration = configuration; 
+            _mediator = mediator;
         }
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
+            Ok(new
+            {
+                data = await _mediator.Send(inputModel),
+                StatusCode = true
+            });
+
+
         [HttpPost]
         [Route("Login")]
         public IActionResult Login([FromBody] LoginRequest request)
