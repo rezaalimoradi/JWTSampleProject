@@ -19,7 +19,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
         public async Task Handle(RemoveProductCommand request, CancellationToken cancellationToken)
         {
-            var obj = _appDbContext.Products.Find(request.ProductName);
+            var obj = _appDbContext.Products.Find(request.Id);
 
             if (obj != null)
             {
@@ -36,6 +36,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
     public class RemoveProductCommand : IRequest
     {
+        public Guid Id { get; set; }
         public string ProductName { get; set; }
     }
 }
