@@ -19,9 +19,9 @@ namespace JWTSampleProject.CQRS.Queries
         }
         public async Task<Product> Handle(ProductQueryInputModel request, CancellationToken cancellationToken)
         {
-            var newProduct = _mapper.Map<ProductQueryInputModel, Product>(request);
-            await _context.Products.AnyAsync();
-            return newProduct;
+            var product = await _context.Products.FirstAsync();
+            var res = _mapper.Map<Product>(product);
+            return res;
         }
     }
 }
