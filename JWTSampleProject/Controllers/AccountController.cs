@@ -55,6 +55,19 @@ namespace JWTSampleProject.Controllers
                 StatusCode = true
             });
 
+        /// <summary>
+        /// مشاهده کاربر با یوزر و پسورد
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
+            Ok(new
+            {
+                data = await _mediator.Send(inputModel),
+                StatusCode = true
+            });
+
 
         /// <summary>
         /// افزودن کاربر
@@ -69,8 +82,6 @@ namespace JWTSampleProject.Controllers
 
             return Ok();
         }
-
-
         /// <summary>
         /// ویرایش کاربر
         /// </summary>
@@ -126,6 +137,11 @@ namespace JWTSampleProject.Controllers
         [Route("Login")]
         public IActionResult Login([FromBody] User request)
         {
+            UserByEmailPassQueryInputModel userByIdQueryInputModel = new UserByEmailPassQueryInputModel();
+            userByIdQueryInputModel.Email = request.Email;
+            userByIdQueryInputModel.PassWord = request.PassWord;
+            var result = GetUserByUserPass(userByIdQueryInputModel);
+
             var response = new Dictionary<string, string>();
             if (!(request.Role == "admin"))
             {
