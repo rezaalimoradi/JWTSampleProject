@@ -24,7 +24,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             var obj = new Product
             {
                 Email = request.Email,
-                Id = request.Id,
+                ProductId = request.Id,
                 IsAvailable = request.IsAvailable,
                 Phone = request.Phone,
                 ProductDate = request.ProductDate,
