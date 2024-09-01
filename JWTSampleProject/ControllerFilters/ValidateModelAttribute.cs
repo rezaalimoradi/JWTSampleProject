@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KarafariniPlans.ControllerFilters
+namespace JWTSampleProject.ControllerFilters
 {
     public class ValidateModelAttribute : ActionFilterAttribute
     {

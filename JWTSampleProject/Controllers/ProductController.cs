@@ -1,5 +1,6 @@
 ﻿using JWTSampleProject.CQRS.InputModel;
-using KarafariniPlans.Core.Services.Commands.GeneralData;
+using JWTSampleProject.ControllerFilters;
+using JWTSampleProject.Core.Services.Commands.GeneralData;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JWTSampleProject.Controllers
 {
+    [NotImplExceptionFilter]
     [ApiController]
     [Route("[controller]")]
     public class ProductController : Controller
@@ -58,7 +60,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpGet("GetProductsById")]
         public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
             Ok(new
@@ -87,7 +89,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
@@ -101,7 +103,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)

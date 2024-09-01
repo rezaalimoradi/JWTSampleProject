@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KarafariniPlans.ControllerFilters
+namespace JWTSampleProject.ControllerFilters
 {
     public class CustomExceptionFilter : IExceptionFilter
     {

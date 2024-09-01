@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace KarafariniPlans.ControllerFilters
+namespace JWTSampleProject.ControllerFilters
 {
     public class RequestLogFilter : IActionFilter
     {

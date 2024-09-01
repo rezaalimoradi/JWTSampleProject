@@ -34,7 +34,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
             Ok(new
@@ -48,7 +48,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpGet("GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) =>
             Ok(new
@@ -62,7 +62,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
             Ok(new
@@ -76,7 +76,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpGet("GetUserByUserPass")]
         public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
             Ok(new
@@ -91,7 +91,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpPost("AddUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand command)
@@ -105,7 +105,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpPost("UpdateUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
@@ -119,7 +119,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [Authorize("main")]
         [HttpPost("RemoveUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveUserCommand command)

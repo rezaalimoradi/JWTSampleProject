@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace KarafariniPlans.ControllerFilters
+namespace JWTSampleProject.ControllerFilters
 {
     public class HttpGlobalExceptionFilter : IExceptionFilter
     {

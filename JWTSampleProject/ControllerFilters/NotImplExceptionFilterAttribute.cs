@@ -2,7 +2,7 @@
 using System.Net;
 using System.Web.Http.Filters;
 
-namespace KarafariniPlans.ControllerFilters
+namespace JWTSampleProject.ControllerFilters
 {
     public class NotImplExceptionFilterAttribute : System.Web.Http.Filters.ExceptionFilterAttribute
     {
