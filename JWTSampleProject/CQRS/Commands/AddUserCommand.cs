@@ -4,7 +4,7 @@ using JWTSampleProject.Models;
 using MediatR;
 using System.Data;
 
-namespace KarafariniPlans.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Services.Commands.GeneralData
 {
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand>
     {

@@ -5,7 +5,7 @@ using JWTSampleProject.Models;
 using MediatR;
 using System.Net;
 
-namespace KarafariniPlans.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Services.Commands.GeneralData
 {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {

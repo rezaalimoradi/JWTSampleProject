@@ -1,6 +1,6 @@
 @JWTSampleProject_HostAddress = http://localhost:5133
 
-GET {{NadinSoftProject_HostAddress}}/weatherforecast/
+GET {{JWTSampleProject_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

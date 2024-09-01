@@ -3,7 +3,7 @@ using JWTSampleProject.Context;
 using JWTSampleProject.Models;
 using MediatR;
 
-namespace KarafariniPlans.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Services.Commands.GeneralData
 {
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand>
     {

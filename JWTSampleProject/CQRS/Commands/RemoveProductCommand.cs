@@ -4,7 +4,7 @@ using MediatR;
 using System.Net;
 using System.Web.Http;
 
-namespace KarafariniPlans.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Services.Commands.GeneralData
 {
     public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand>
     {
