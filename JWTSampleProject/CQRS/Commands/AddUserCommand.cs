@@ -25,7 +25,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             var obj = new User
             {
                 Email = request.Email,
-                UserId = request.Id,
+                Id = request.Id,
                 IsActive = request.IsActive,
                 Phone = request.Phone,
                 PassWord = request.PassWord,

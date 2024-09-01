@@ -33,7 +33,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
             Ok(new
             {
@@ -41,13 +41,25 @@ namespace JWTSampleProject.Controllers
                 StatusCode = true
             });
 
+        /// <summary>
+        /// مشاهده کاربر جاری
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
+        [HttpGet("GetCurrentUser")]
+        public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) =>
+            Ok(new
+            {
+                data = await _mediator.Send(inputModel),
+                StatusCode = true
+            });
 
         /// <summary>
         /// مشاهده کاربر
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
             Ok(new
             {
@@ -60,7 +72,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("GetUserByUserPass")]
         public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
             Ok(new
             {
@@ -115,7 +127,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("Login")]
         public async Task<User> Login([FromBody] UserByIdQueryInputModel inputModel)
         {
             var obj = await _mediator.Send(inputModel);
@@ -123,7 +135,7 @@ namespace JWTSampleProject.Controllers
                 Email = obj.Email,
                 PassWord = obj.PassWord,
                 Role = obj.Role,
-                UserId = obj.UserId,
+                Id = obj.Id,
                 BirthDate = obj.BirthDate,
                 FirstName = obj.FirstName,
                 LastName = obj.LastName,
