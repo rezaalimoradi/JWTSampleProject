@@ -9,9 +9,9 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand>
     {
         private readonly IMapper _mapper;
-        private readonly IAppDbContext _context;
+        private readonly ISampleDbContext _context;
 
-        public AddUserCommandHandler(IMapper mapper, IAppDbContext context)
+        public AddUserCommandHandler(IMapper mapper, ISampleDbContext context)
         {
             _mapper = mapper;
             _context = context;
@@ -25,7 +25,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             var obj = new User
             {
                 Email = request.Email,
-                UserId = request.Id,
+                Id = request.Id,
                 IsActive = request.IsActive,
                 Phone = request.Phone,
                 PassWord = request.PassWord,

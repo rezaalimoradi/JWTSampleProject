@@ -5,12 +5,12 @@ using System.Reflection;
 
 namespace JWTSampleProject.Context
 {
-    public class AppDbContext : DbContext , IAppDbContext, IDisposable
+    public class SampleDbContext : DbContext , ISampleDbContext, IDisposable
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
+        public SampleDbContext(DbContextOptions<SampleDbContext> options, IConfiguration configuration) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
