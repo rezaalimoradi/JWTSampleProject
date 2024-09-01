@@ -35,6 +35,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("GetProductsById")]
         public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
             Ok(new
@@ -49,6 +50,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
@@ -62,6 +64,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
@@ -75,6 +78,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
