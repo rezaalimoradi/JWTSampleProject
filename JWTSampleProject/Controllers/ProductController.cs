@@ -1,6 +1,5 @@
 ﻿using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.ControllerFilters;
-using JWTSampleProject.Core.Services.Commands.GeneralData;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
