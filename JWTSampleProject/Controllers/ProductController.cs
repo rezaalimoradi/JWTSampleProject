@@ -21,13 +21,29 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("GetProducts")]
         public async Task<IActionResult> GetProducts([FromBody] ProductQueryInputModel inputModel) =>
             Ok(new
             {
                 data = await _mediator.Send(inputModel),
                 StatusCode = true
             });
+
+
+        /// <summary>
+        /// مشاهده همه محصولات یک کاربر
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
+        [HttpGet("GetProductsById")]
+        public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
+            Ok(new
+            {
+                data = await _mediator.Send(inputModel),
+                StatusCode = true
+            });
+
+
         /// <summary>
         /// افزودن محصول
         /// </summary>
@@ -67,5 +83,6 @@ namespace JWTSampleProject.Controllers
 
             return Ok();
         }
+
     }
 }
