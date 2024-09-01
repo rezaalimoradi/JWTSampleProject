@@ -135,7 +135,7 @@ namespace JWTSampleProject.Controllers
                 Email = obj.Email,
                 PassWord = obj.PassWord,
                 Role = obj.Role,
-                UserId = obj.UserId,
+                Id = obj.Id,
                 BirthDate = obj.BirthDate,
                 FirstName = obj.FirstName,
                 LastName = obj.LastName,

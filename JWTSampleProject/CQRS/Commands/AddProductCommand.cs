@@ -8,9 +8,9 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand>
     {
         private readonly IMapper _mapper;
-        private readonly IAppDbContext _context;
+        private readonly ISampleDbContext _context;
 
-        public AddProductCommandHandler(IMapper mapper, IAppDbContext context)
+        public AddProductCommandHandler(IMapper mapper, ISampleDbContext context)
         {
             _mapper = mapper;
             _context = context;
@@ -24,7 +24,7 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             var obj = new Product
             {
                 Email = request.Email,
-                ProductId = request.Id,
+                Id = request.Id,
                 IsAvailable = request.IsAvailable,
                 Phone = request.Phone,
                 ProductDate = request.ProductDate,
