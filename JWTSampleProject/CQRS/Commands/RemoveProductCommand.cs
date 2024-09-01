@@ -6,12 +6,12 @@ using System.Web.Http;
 
 namespace KarafariniPlans.Core.Services.Commands.GeneralData
 {
-    public class RemoveActivityTypeCommandHandler : IRequestHandler<RemoveProductCommand>
+    public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand>
     {
         private readonly ISampleDbContext _appDbContext;
         private readonly IMapper _mapper;
 
-        public RemoveActivityTypeCommandHandler(ISampleDbContext appDbContext, IMapper mapper)
+        public RemoveProductCommandHandler(ISampleDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
             _mapper = mapper;
