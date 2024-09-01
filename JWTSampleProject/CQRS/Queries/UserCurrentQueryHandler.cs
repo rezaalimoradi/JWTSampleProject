@@ -9,10 +9,10 @@ namespace JWTSampleProject.CQRS.Queries
 {
     public class UserCurrentQueryHandler : IRequestHandler<UserCurrentQueryInputModel, User>
     {
-        private readonly IAppDbContext _context;
+        private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserCurrentQueryHandler(IAppDbContext context, IMapper mapper)
+        public UserCurrentQueryHandler(ISampleDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

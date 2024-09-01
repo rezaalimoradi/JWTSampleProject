@@ -9,10 +9,10 @@ namespace JWTSampleProject.CQRS.Queries
 {
     public class UserByEmailPassQueryHandler : IRequestHandler<UserByEmailPassQueryInputModel, User>
     {
-        private readonly IAppDbContext _context;
+        private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserByEmailPassQueryHandler(IAppDbContext context, IMapper mapper)
+        public UserByEmailPassQueryHandler(ISampleDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

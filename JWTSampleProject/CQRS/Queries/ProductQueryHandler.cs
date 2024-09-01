@@ -9,10 +9,10 @@ namespace JWTSampleProject.CQRS.Queries
 {
     public class ProductQueryHandler : IRequestHandler<ProductQueryInputModel, Product>
     {
-        private readonly IAppDbContext _context;
+        private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProductQueryHandler(IAppDbContext context, IMapper mapper)
+        public ProductQueryHandler(ISampleDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

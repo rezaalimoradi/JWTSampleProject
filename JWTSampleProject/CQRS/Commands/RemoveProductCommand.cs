@@ -8,10 +8,10 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 {
     public class RemoveActivityTypeCommandHandler : IRequestHandler<RemoveProductCommand>
     {
-        private readonly IAppDbContext _appDbContext;
+        private readonly ISampleDbContext _appDbContext;
         private readonly IMapper _mapper;
 
-        public RemoveActivityTypeCommandHandler(IAppDbContext appDbContext, IMapper mapper)
+        public RemoveActivityTypeCommandHandler(ISampleDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
             _mapper = mapper;

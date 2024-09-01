@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWTSampleProject.Migrations
 {
     [DbContext(typeof(SampleDbContext))]
-    [Migration("20240831052927_addpassword")]
-    partial class addpassword
+    [Migration("20240901081017_AddUserIdToProduct")]
+    partial class AddUserIdToProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace JWTSampleProject.Migrations
 
             modelBuilder.Entity("JWTSampleProject.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -49,14 +49,17 @@ namespace JWTSampleProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("JWTSampleProject.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -86,7 +89,11 @@ namespace JWTSampleProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JWTSampleProject.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(SampleDbContext))]
     [Migration("20240831053046_AddRole")]
     partial class AddRole
     {
