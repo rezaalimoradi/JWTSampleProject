@@ -24,11 +24,12 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
             var obj = new Product
             {
                 Email = request.Email,
-                ProductId = request.Id,
+                ProductId = request.ProductId,
                 IsAvailable = request.IsAvailable,
                 Phone = request.Phone,
                 ProductDate = request.ProductDate,
-                ProductName = request.ProductName
+                ProductName = request.ProductName,
+                UserId = request.UserId
             };
 
             await _context.Products.AddAsync(obj);
@@ -39,11 +40,12 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 
     public class AddProductCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
         public bool IsAvailable { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string ProductName { get; set; }
         public DateTime ProductDate { get; set; }
+        public Guid UserId { get; set; }
     }
 }
