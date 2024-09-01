@@ -121,9 +121,14 @@ namespace JWTSampleProject.Controllers
             var obj = await _mediator.Send(inputModel);
             User loginRequest = new User{
                 Email = obj.Email,
-                PassWord = obj.FirstName,
-                Role = obj.Role
-                
+                PassWord = obj.PassWord,
+                Role = obj.Role,
+                Id = obj.Id,
+                BirthDate = obj.BirthDate,
+                FirstName = obj.FirstName,
+                LastName = obj.LastName,
+                IsActive = obj.IsActive,
+                Phone = obj.Phone
             };
             this.Login(loginRequest);
             return obj;
