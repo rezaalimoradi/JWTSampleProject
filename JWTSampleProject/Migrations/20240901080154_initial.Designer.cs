@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JWTSampleProject.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(SampleDbContext))]
     [Migration("20240901080154_initial")]
     partial class initial
     {

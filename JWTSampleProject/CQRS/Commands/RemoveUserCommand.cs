@@ -8,10 +8,10 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 {
     public class RemoveUserCommandHandler : IRequestHandler<RemoveUserCommand>
     {
-        private readonly IAppDbContext _appDbContext;
+        private readonly ISampleDbContext _appDbContext;
         private readonly IMapper _mapper;
 
-        public RemoveUserCommandHandler(IAppDbContext appDbContext, IMapper mapper)
+        public RemoveUserCommandHandler(ISampleDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
             _mapper = mapper;

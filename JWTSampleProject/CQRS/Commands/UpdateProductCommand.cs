@@ -9,10 +9,10 @@ namespace KarafariniPlans.Core.Services.Commands.GeneralData
 {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
-        private readonly IAppDbContext _appDbContext;
+        private readonly ISampleDbContext _appDbContext;
         private readonly IMapper _mapper;
 
-        public UpdateProductCommandHandler(IAppDbContext appDbContext, IMapper mapper)
+        public UpdateProductCommandHandler(ISampleDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
             _mapper = mapper;
