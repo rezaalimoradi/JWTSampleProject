@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using JWTSampleProject.Core.Services.Commands.GeneralData;
 
 namespace JWTSampleProject.Controllers
 {
@@ -59,7 +60,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpGet("GetProductsById")]
         public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
             Ok(new
@@ -102,7 +103,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)

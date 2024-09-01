@@ -1,7 +1,6 @@
 ﻿using Azure;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
-using KarafariniPlans.Core.Services.Commands.GeneralData;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
@@ -34,7 +33,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
             Ok(new
@@ -48,7 +47,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpGet("GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) =>
             Ok(new
@@ -62,7 +61,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
             Ok(new
@@ -76,7 +75,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpGet("GetUserByUserPass")]
         public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
             Ok(new
@@ -91,7 +90,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpPost("AddUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand command)
@@ -105,7 +104,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpPost("UpdateUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
@@ -119,7 +118,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize("main")]
+        [Authorize]
         [HttpPost("RemoveUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveUserCommand command)
