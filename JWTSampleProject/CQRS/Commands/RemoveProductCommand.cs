@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using JWTSampleProject.Context;
 using MediatR;
 using System.Net;
@@ -19,7 +20,16 @@ namespace JWTSampleProject.Core.Services.Commands.GeneralData
 
         public async Task Handle(RemoveProductCommand request, CancellationToken cancellationToken)
         {
+            var response = new Dictionary<string, string>();
+
             var obj = _appDbContext.Products.Find(request.Id);
+
+            
+            var currentUser = _appDbContext.Users.Find(request.Id);
+            if (obj.UserId != currentUser.UserId)
+            {
+                response.Add("Error", "This Product Not Create Your User");
+            }
 
             if (obj != null)
             {

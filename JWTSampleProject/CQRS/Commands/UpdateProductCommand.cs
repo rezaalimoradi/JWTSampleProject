@@ -22,6 +22,13 @@ namespace JWTSampleProject.Core.Services.Commands.GeneralData
         {
             var response = new Dictionary<string, string>();
             var res = _appDbContext.Products.Find(request.Id);
+
+            var currentUser = _appDbContext.Users.Find(request.Id);
+            if (res.UserId != currentUser.UserId)
+            {
+                response.Add("Error", "This Product Not Create Your User");
+            }
+
             if (res != null)
             {
                 var product = _mapper.Map<Product>(res);
