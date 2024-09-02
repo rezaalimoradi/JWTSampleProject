@@ -36,10 +36,9 @@ Serilog.Log.Logger = new LoggerConfiguration()
           .MinimumLevel.Override("Microsoft.EntityFrameworkCore",
 LogEventLevel.Warning)
           .Enrich.FromLogContext()
-          .WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval:
-RollingInterval.Day))
+          //.WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval:RollingInterval.Day))
 #if DEBUG
-          .WriteTo.Async(c => c.Console())
+          //.WriteTo.Async(c => c.Console())
 #endif
           .CreateLogger();
 
