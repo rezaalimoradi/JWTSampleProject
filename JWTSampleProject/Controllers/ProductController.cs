@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using JWTSampleProject.Core.Services.Commands.GeneralData;
+using Microsoft.AspNetCore.Cors;
 
 namespace JWTSampleProject.Controllers
 {
+    [EnableCors("AllowOrigin")]
     [NotImplExceptionFilter]
     [ApiController]
     [Route("[controller]")]
@@ -46,6 +48,7 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
+        [ValidateModel]
         [HttpGet("GetProducts")]
         public async Task<IActionResult> GetProducts([FromBody] ProductQueryInputModel inputModel) =>
             Ok(new
@@ -61,6 +64,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpGet("GetProductsById")]
         public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
             Ok(new
@@ -76,6 +80,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
@@ -90,6 +95,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
@@ -104,6 +110,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)

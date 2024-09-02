@@ -1,10 +1,9 @@
-﻿using Azure;
+﻿using JWTSampleProject.ControllerFilters;
 using JWTSampleProject.Core.Services.Commands.GeneralData;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -35,6 +34,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
             Ok(new
@@ -49,6 +49,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpGet("GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) =>
             Ok(new
@@ -63,6 +64,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
             Ok(new
@@ -77,6 +79,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpGet("GetUserByUserPass")]
         public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
             Ok(new
@@ -92,6 +95,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("AddUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand command)
@@ -106,6 +110,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("UpdateUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
@@ -120,6 +125,7 @@ namespace JWTSampleProject.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize]
+        [ValidateModel]
         [HttpPost("RemoveUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveUserCommand command)
@@ -135,53 +141,88 @@ namespace JWTSampleProject.Controllers
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
-        [HttpGet("Login")]
-        public async Task<User> Login([FromBody] UserByIdQueryInputModel inputModel)
-        {
-            var obj = await _mediator.Send(inputModel);
-            User loginRequest = new User{
-                Email = obj.Email,
-                PassWord = obj.PassWord,
-                Role = obj.Role,
-                UserId = obj.UserId,
-                BirthDate = obj.BirthDate,
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                IsActive = obj.IsActive,
-                Phone = obj.Phone
-            };
-            this.Login(loginRequest);
-            return obj;
-        }
+        //[ValidateModel]
+        //[HttpGet("Login")]
+        //public async Task<User> Login([FromBody] UserByIdQueryInputModel inputModel)
+        //{
+        //    var obj = await _mediator.Send(inputModel);
+        //    User loginRequest = new User{
+        //        Email = obj.Email,
+        //        PassWord = obj.PassWord,
+        //        Role = obj.Role,
+        //        UserId = obj.UserId,
+        //        BirthDate = obj.BirthDate,
+        //        FirstName = obj.FirstName,
+        //        LastName = obj.LastName,
+        //        IsActive = obj.IsActive,
+        //        Phone = obj.Phone
+        //    };
+        //    this.Login(loginRequest);
+        //    return obj;
+        //}
         /// <summary>
         /// لاگین
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+        //[ValidateModel]
+        //[HttpPost]
+        //[Route("Login")]
+        //public IActionResult Login([FromBody] User request)
+        //{
+        //    UserByEmailPassQueryInputModel userByIdQueryInputModel = new UserByEmailPassQueryInputModel();
+        //    userByIdQueryInputModel.Email = request.Email;
+        //    userByIdQueryInputModel.PassWord = request.PassWord;
+        //    var result = GetUserByUserPass(userByIdQueryInputModel);
+
+        //    var response = new Dictionary<string, string>();
+        //    if (!(request.Role == "admin"))
+        //    {
+        //        response.Add("Error", "Invalid username or password Or Role");
+        //        return BadRequest(response);
+        //    }
+
+        //    var roles = new string[] { "Role1", "Role2" };
+        //    var token = GenerateJwtToken(request.Email, roles.ToList());
+        //    return Ok(new LoginResponse()
+        //    {
+        //        Access_Token = token,
+        //        UserName = request.Email
+        //    });
+        //}
+
+
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login([FromBody] User request)
+        public async Task<IActionResult> Login([FromBody] UsersLoginModel model)
         {
-            UserByEmailPassQueryInputModel userByIdQueryInputModel = new UserByEmailPassQueryInputModel();
-            userByIdQueryInputModel.Email = request.Email;
-            userByIdQueryInputModel.PassWord = request.PassWord;
-            var result = GetUserByUserPass(userByIdQueryInputModel);
-
-            var response = new Dictionary<string, string>();
-            if (!(request.Role == "admin"))
+            if (ModelState.IsValid)
             {
-                response.Add("Error", "Invalid username or password Or Role");
-                return BadRequest(response);
+                var issuer = _configuration["Jwt:Issuer"];
+                var audience = _configuration["Jwt:Audience"];
+                var key = _configuration["JWT:Key"];
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    { new Claim("id", model.Username)
+                        }),
+                    Expires = DateTime.Now.AddMinutes(10),
+                    Issuer = issuer,
+                    Audience = audience,
+                    SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
+
+                };
+                var tokenObject = new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
+                var ResultJwt = new JwtSecurityTokenHandler().WriteToken(tokenObject);
+                if (ResultJwt == null) return Unauthorized();
+                return Ok(ResultJwt);
+
             }
-
-            var roles = new string[] { "Role1", "Role2" };
-            var token = GenerateJwtToken(request.Email, roles.ToList());
-            return Ok(new LoginResponse()
-            {
-                Access_Token = token,
-                UserName = request.Email
-            });
+            return Unauthorized();
         }
+
+
         /// <summary>
         /// ساخت توکن
         /// </summary>
@@ -217,5 +258,11 @@ namespace JWTSampleProject.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+    }
+
+    public class UsersLoginModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
