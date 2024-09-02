@@ -1,4 +1,6 @@
 using FluentValidation;
+using Infrastructure.Common;
+using Infrastructure.Common.GlobalExceptionHandling;
 using JWTSampleProject.Behaviors;
 using JWTSampleProject.Context;
 using MediatR;
@@ -7,16 +9,44 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Events;
 using System.Reflection;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    ApplicationName = typeof(Program).Assembly.FullName,
+    ContentRootPath = Path.GetFullPath(Directory.GetCurrentDirectory()),
+    WebRootPath = Path.GetFullPath(Directory.GetCurrentDirectory()),
+    Args = args
+});
 
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
 var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
 
 // Add services to the container.
 
+Serilog.Log.Logger = new LoggerConfiguration()
+#if DEBUG
+          .MinimumLevel.Debug()
+#else
+            .MinimumLevel.Information()
+#endif
+          .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+          .MinimumLevel.Override("Microsoft.EntityFrameworkCore",
+LogEventLevel.Warning)
+          .Enrich.FromLogContext()
+          .WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval:
+RollingInterval.Day))
+#if DEBUG
+          .WriteTo.Async(c => c.Console())
+#endif
+          .CreateLogger();
+
+builder.Host.UseSerilog();
+builder.Services.AddOptions();
+builder.Services.Configure<Configs>(builder.Configuration.GetSection("Configs"));
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -133,13 +163,20 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseAuthentication();
+
+app.UseHttpsRedirection();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseRouting();
 app.UseCors("AllowOrigin");
 app.UseSerilogRequestLogging();
-
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.MapControllers();
 
 app.Run();
