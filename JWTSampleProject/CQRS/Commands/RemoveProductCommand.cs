@@ -24,9 +24,10 @@ namespace JWTSampleProject.Core.Services.Commands.GeneralData
 
             var obj = _appDbContext.Products.Find(request.Id);
 
-            
+
             var currentUser = _appDbContext.Users.Find(request.Id);
-            if (obj.UserId != currentUser.UserId)
+
+            if (obj == null || currentUser == null || obj.UserId != currentUser.UserId)
             {
                 response.Add("Error", "This Product Not Create Your User");
             }
