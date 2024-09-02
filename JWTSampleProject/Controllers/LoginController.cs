@@ -1,17 +1,20 @@
 ﻿using JWTSampleProject.ControllerFilters;
-using JWTSampleProject.Core.Services.Commands.GeneralData;
 using JWTSampleProject.CQRS.InputModel;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JWTSampleProject.Controllers
 {
     [ApiController]
+    [EnableCors("AllowOrigin")]
+    [NotImplExceptionFilter]
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
@@ -26,8 +29,6 @@ namespace JWTSampleProject.Controllers
             _configuration = configuration; 
             _mediator = mediator;
         }
-
-
 
 
         [HttpPost]

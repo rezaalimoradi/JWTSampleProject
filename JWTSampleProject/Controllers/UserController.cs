@@ -3,10 +3,16 @@ using JWTSampleProject.Core.Services.Commands.GeneralData;
 using JWTSampleProject.CQRS.InputModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JWTSampleProject.Controllers
 {
+    [ApiController]
+    [EnableCors("AllowOrigin")]
+    [NotImplExceptionFilter]
+    [Route("[controller]")]
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
@@ -18,6 +24,26 @@ namespace JWTSampleProject.Controllers
             _logger = logger;
             _configuration = configuration;
             _mediator = mediator;
+        }
+
+        //after
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            string jtiClaimValue = null;
+            if (context.HttpContext.User.Claims.Any(a => a.Type == "jti"))
+            {
+                jtiClaimValue = context.HttpContext.User.Claims.FirstOrDefault(a => a.Type == "jti").Value;
+            }
+            int userid = !string.IsNullOrWhiteSpace(jtiClaimValue) ? int.Parse(jtiClaimValue) : -1;
+            //_logger.OperationInsertIntoLoanServiceHisoty(Request.Path.ToString(), context.HttpContext.Request.Headers["RequestDate"].ToString(), DateTime.Now.ToString(), userid);
+        }
+
+        //before
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            //start
+            context.HttpContext.Request.Headers.Add("RequestDate", new Microsoft.Extensions.Primitives.StringValues(DateTime.Now.ToString()));
+
         }
 
         /// <summary>
