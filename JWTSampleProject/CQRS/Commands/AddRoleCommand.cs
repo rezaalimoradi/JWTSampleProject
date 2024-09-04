@@ -4,7 +4,7 @@ using JWTSampleProject.Models;
 using MediatR;
 using System.Data;
 
-namespace JWTSampleProject.CQRS.Commands
+namespace JWTSampleProject.Core.Commands
 {
     public class AddRoleCommandHandler : IRequestHandler<AddRoleCommand>
     {

@@ -105,6 +105,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ProductBehaviors<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceHelperBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddCors(c => c.AddPolicy("AllowOrigin", p => p.AllowAnyHeader().SetIsOriginAllowed(o => true).AllowAnyMethod()));

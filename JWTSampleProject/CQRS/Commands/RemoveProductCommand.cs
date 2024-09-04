@@ -5,7 +5,7 @@ using MediatR;
 using System.Net;
 using System.Web.Http;
 
-namespace JWTSampleProject.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Commands
 {
     public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand>
     {

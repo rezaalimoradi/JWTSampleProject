@@ -3,7 +3,7 @@ using JWTSampleProject.Context;
 using JWTSampleProject.Models;
 using MediatR;
 
-namespace JWTSampleProject.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Commands
 {
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand>
     {

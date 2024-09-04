@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using JWTSampleProject.Core.Services.Commands.GeneralData;
 using Microsoft.AspNetCore.Cors;
+using JWTSampleProject.Infrastructure.Base;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using JWTSampleProject.Core.Commands;
 
 namespace JWTSampleProject.Controllers
 {
@@ -13,14 +16,9 @@ namespace JWTSampleProject.Controllers
     [NotImplExceptionFilter]
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
-        private readonly IMediator _mediator;
-
-        public ProductController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public ProductController(IMediator mediator) : base(mediator) { }
 
         //after
         public override void OnActionExecuted(ActionExecutedContext context)
@@ -50,12 +48,7 @@ namespace JWTSampleProject.Controllers
         /// <returns></returns>
         [ValidateModel]
         [HttpGet("GetProducts")]
-        public async Task<IActionResult> GetProducts([FromBody] ProductQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetProducts([FromBody] ProductQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
 
         /// <summary>
@@ -66,12 +59,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetProductsById")]
-        public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetProductsById([FromBody] ProductByIdQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
 
         /// <summary>
@@ -83,12 +71,8 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
-        {
-            await _mediator.Send(command);
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command) => await ExecuteTRequest(command);
 
-            return Ok();
-        }
         /// <summary>
         /// ویرایش محصول
         /// </summary>
@@ -98,12 +82,8 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
-        {
-            await _mediator.Send(command);
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command) => await ExecuteTRequest(command);
 
-            return Ok();
-        }
         /// <summary>
         /// حذف محصول
         /// </summary>
@@ -113,12 +93,7 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
-        {
-            await _mediator.Send(command);
-
-            return Ok();
-        }
+        public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command) => await ExecuteTRequest(command);
 
     }
 }

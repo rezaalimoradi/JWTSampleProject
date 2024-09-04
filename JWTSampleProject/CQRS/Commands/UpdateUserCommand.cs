@@ -5,7 +5,7 @@ using JWTSampleProject.Models;
 using MediatR;
 using System.Net;
 
-namespace JWTSampleProject.Core.Services.Commands.GeneralData
+namespace JWTSampleProject.Core.Commands
 {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     {
