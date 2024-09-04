@@ -1,7 +1,7 @@
 ﻿using JWTSampleProject.ControllerFilters;
-using JWTSampleProject.Core.Services.Commands.GeneralData;
-using JWTSampleProject.CQRS.Commands;
+using JWTSampleProject.Core.Commands;
 using JWTSampleProject.CQRS.InputModel;
+using JWTSampleProject.Infrastructure.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -14,17 +14,13 @@ namespace JWTSampleProject.Controllers
     [EnableCors("AllowOrigin")]
     [NotImplExceptionFilter]
     [Route("[controller]")]
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
-        private readonly ILogger<RoleController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator1;
 
-        public RoleController(ILogger<RoleController> logger, IConfiguration configuration, IMediator mediator)
+        public RoleController(IMediator mediator, IMediator mediator1) : base(mediator)
         {
-            _logger = logger;
-            _configuration = configuration;
-            _mediator = mediator;
+            this.mediator1 = mediator1;
         }
 
         //after
@@ -55,12 +51,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetRoles")]
-        public async Task<IActionResult> GetRoles([FromBody] RoleQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetRoles([FromBody] RoleQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// مشاهده نقش کاربر جاری
@@ -70,12 +61,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetCurrentRoleUser")]
-        public async Task<IActionResult> GetCurrentRoleUser([FromBody] RoleCurrentUserQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetCurrentRoleUser([FromBody] RoleCurrentUserQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// مشاهده نقش کاربر
@@ -85,12 +71,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetRoleById")]
-        public async Task<IActionResult> GetRoleById([FromBody] RoleByIdQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetRoleById([FromBody] RoleByIdQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
 
 
@@ -106,7 +87,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] AddRoleCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }
@@ -121,7 +102,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateRoleCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }
@@ -136,7 +117,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveRoleCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }

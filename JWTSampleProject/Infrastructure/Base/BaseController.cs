@@ -19,14 +19,5 @@ namespace JWTSampleProject.Infrastructure.Base
                 StatusCode = true
             });
         }
-
-        public async Task<IActionResult> ExecuteTRequest<TResponse>(IRequest<TResponse> request)
-        {
-            return Ok(new
-            {
-                data = await _mediator.Send(request),
-                StatusCode = true
-            });
-        }
     }
 }

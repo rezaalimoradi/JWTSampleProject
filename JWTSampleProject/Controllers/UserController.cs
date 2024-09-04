@@ -1,6 +1,7 @@
 ﻿using JWTSampleProject.ControllerFilters;
-using JWTSampleProject.Core.Services.Commands.GeneralData;
+using JWTSampleProject.Core.Commands;
 using JWTSampleProject.CQRS.InputModel;
+using JWTSampleProject.Infrastructure.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -13,17 +14,13 @@ namespace JWTSampleProject.Controllers
     [EnableCors("AllowOrigin")]
     [NotImplExceptionFilter]
     [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private readonly ILogger<UserController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator1;
 
-        public UserController(ILogger<UserController> logger, IConfiguration configuration, IMediator mediator)
+        public UserController(IMediator mediator, IMediator mediator1) : base(mediator)
         {
-            _logger = logger;
-            _configuration = configuration;
-            _mediator = mediator;
+            this.mediator1 = mediator1;
         }
 
         //after
@@ -54,12 +51,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetUsers([FromBody] UserQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// مشاهده کاربر جاری
@@ -69,12 +61,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetCurrentUser")]
-        public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetCurrentUser([FromBody] UserCurrentQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// مشاهده کاربر
@@ -84,12 +71,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetUserById")]
-        public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
+        public async Task<IActionResult> GetUserById([FromBody] UserByIdQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// مشاهده کاربر با یوزر و پسورد
@@ -99,13 +81,7 @@ namespace JWTSampleProject.Controllers
         [Authorize]
         [ValidateModel]
         [HttpGet("GetUserByUserPass")]
-        public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) =>
-            Ok(new
-            {
-                data = await _mediator.Send(inputModel),
-                StatusCode = true
-            });
-
+        public async Task<IActionResult> GetUserByUserPass([FromBody] UserByEmailPassQueryInputModel inputModel) => await ExecuteTResponse(inputModel);
 
         /// <summary>
         /// افزودن کاربر
@@ -118,7 +94,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }
@@ -133,7 +109,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }
@@ -148,7 +124,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveUserCommand command)
         {
-            await _mediator.Send(command);
+            await mediator1.Send(command);
 
             return Ok();
         }

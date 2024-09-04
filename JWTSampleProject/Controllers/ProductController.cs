@@ -1,14 +1,12 @@
-﻿using JWTSampleProject.CQRS.InputModel;
-using JWTSampleProject.ControllerFilters;
+﻿using JWTSampleProject.ControllerFilters;
+using JWTSampleProject.Core.Commands;
+using JWTSampleProject.CQRS.InputModel;
+using JWTSampleProject.Infrastructure.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using JWTSampleProject.Core.Services.Commands.GeneralData;
-using Microsoft.AspNetCore.Cors;
-using JWTSampleProject.Infrastructure.Base;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using JWTSampleProject.Core.Commands;
 
 namespace JWTSampleProject.Controllers
 {
@@ -18,7 +16,12 @@ namespace JWTSampleProject.Controllers
     [Route("[controller]")]
     public class ProductController : BaseController
     {
-        public ProductController(IMediator mediator) : base(mediator) { }
+        private readonly IMediator mediator1;
+
+        public ProductController(IMediator mediator, IMediator mediator1) : base(mediator)
+        {
+            this.mediator1 = mediator1;
+        }
 
         //after
         public override void OnActionExecuted(ActionExecutedContext context)
@@ -71,7 +74,12 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command) => await ExecuteTRequest(command);
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
+        {
+            await mediator1.Send(command);
+
+            return Ok();
+        }
 
         /// <summary>
         /// ویرایش محصول
@@ -82,7 +90,12 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command) => await ExecuteTRequest(command);
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
+        {
+            await mediator1.Send(command);
+
+            return Ok();
+        }
 
         /// <summary>
         /// حذف محصول
@@ -93,7 +106,12 @@ namespace JWTSampleProject.Controllers
         [ValidateModel]
         [HttpPost("RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command) => await ExecuteTRequest(command);
+        public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
+        {
+            await mediator1.Send(command);
+
+            return Ok();
+        }
 
     }
 }
