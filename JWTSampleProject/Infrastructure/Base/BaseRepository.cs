@@ -1,18 +1,17 @@
-﻿using KarafariniPlans.Core.Domain.Shared;
-using KarafariniPlans.Infrastructure.Persistence.EntityFramework;
+﻿using JWTSampleProject.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 using System.Linq.Expressions;
 
-namespace KarafariniPlans.Infrastructure.Persistence.Data.Base
+namespace JWTSampleProject.Infrastructure.Base
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {
-        private readonly IKarafariniPlansContext context;
+        private readonly ISampleDbContext context;
         private readonly DbSet<T> dbSet;
 
 
-        public BaseRepository(IKarafariniPlansContext context)
+        public BaseRepository(ISampleDbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();
