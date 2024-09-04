@@ -24,7 +24,7 @@ namespace JWTSampleProject.Behaviors
 
                 if(errors.Count != 0) 
                 {
-                    throw new Exception();
+                    throw new FluentValidation.ValidationException(errors);
                 }
             }
             return await next();

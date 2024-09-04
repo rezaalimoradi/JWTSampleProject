@@ -3,6 +3,7 @@ using Infrastructure.Common;
 using Infrastructure.Common.GlobalExceptionHandling;
 using JWTSampleProject.Behaviors;
 using JWTSampleProject.Context;
+using JWTSampleProject.Infrastructure.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -158,7 +159,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
