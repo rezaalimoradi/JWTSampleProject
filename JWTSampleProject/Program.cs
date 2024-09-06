@@ -187,6 +187,7 @@ app.UseCors("AllowOrigin");
 app.UseSerilogRequestLogging();
 app.UseAuthorization();
 app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
