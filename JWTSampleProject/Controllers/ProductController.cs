@@ -18,7 +18,7 @@ namespace JWTSampleProject.Controllers
     {
         private readonly IMediator mediator1;
 
-        public ProductController(IMediator mediator, IMediator mediator1) : base(mediator)
+        public ProductController(IMediator mediator, IMediator mediator1) : base(mediator1)
         {
             this.mediator1 = mediator1;
         }

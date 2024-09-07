@@ -33,7 +33,6 @@ namespace JWTSampleProject.Core.Commands
             {
                 var role = _mapper.Map<Role>(res);
                 role.RoleName = request.RoleName;
-                role.RoleId = request.RoleId;
 
                 await _appDbContext.SaveChangesAsync();
             }

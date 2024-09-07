@@ -162,18 +162,6 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-//app.UseAuthentication();
-//app.UseAuthorization();
-//app.UseDefaultFiles();
-//app.UseStaticFiles();
-//app.UseHttpsRedirection();
-//app.UseRouting();
-//app.UseCors("AllowOrigin");
-//app.UseSerilogRequestLogging();
-//app.MapControllers();
-//app.UseMiddleware<ExceptionMiddleware>();
-//app.Run();
-
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
