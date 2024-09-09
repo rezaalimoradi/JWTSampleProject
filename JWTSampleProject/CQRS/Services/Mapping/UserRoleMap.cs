@@ -9,7 +9,7 @@ namespace JWTSampleProject.CQRS.Services.Mapping
     {
         public UserRoleMap()
         {
-            CreateMap<UserRole, AddUserRoleCommand>().ForMember(a => a.Id, b => b.Ignore()).ReverseMap();
+            CreateMap<UserRole, AddUserRoleCommand>().ForMember(a => a.UserRoleId, b => b.Ignore()).ReverseMap();
             CreateMap<UserRole, UserRoleDto>().ReverseMap();
         }
     }
