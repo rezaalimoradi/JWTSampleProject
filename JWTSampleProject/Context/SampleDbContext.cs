@@ -9,8 +9,9 @@ namespace JWTSampleProject.Context
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public SampleDbContext(DbContextOptions<SampleDbContext> options, IConfiguration configuration) : base(options)
         {
         }

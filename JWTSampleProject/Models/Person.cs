@@ -1,0 +1,14 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JWTSampleProject.Models
+{
+    public class Person
+    {
+        [Key]
+        public int PersonId { get; set; }
+        [MaxLength(128), Required]
+        public string PersonName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public List<Role> Roles { get; set; }
+    }
+}

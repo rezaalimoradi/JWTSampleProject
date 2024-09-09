@@ -35,6 +35,7 @@ namespace JWTSampleProject.Core.Commands
 
     public class AddRoleCommand : IRequest
     {
+        public int RoleId { get; set; }
         public string RoleName { get; set; }
     }
 }

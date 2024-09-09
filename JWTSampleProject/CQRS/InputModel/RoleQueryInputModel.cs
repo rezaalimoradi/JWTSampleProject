@@ -5,7 +5,7 @@ namespace JWTSampleProject.CQRS.InputModel
 {
     public class RoleQueryInputModel : IRequest<List<Role>>
     {
-        
+        public string RoleName { get; set; }
 
     }
 }

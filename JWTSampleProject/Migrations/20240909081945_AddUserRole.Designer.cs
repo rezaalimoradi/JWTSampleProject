@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWTSampleProject.Migrations
 {
     [DbContext(typeof(SampleDbContext))]
-    [Migration("20240902172734_AddUserRole")]
+    [Migration("20240909081945_AddUserRole")]
     partial class AddUserRole
     {
         /// <inheritdoc />
@@ -24,6 +24,27 @@ namespace JWTSampleProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("JWTSampleProject.Models.Person", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonId"));
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PersonName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("PersonId");
+
+                    b.ToTable("Persons");
+                });
 
             modelBuilder.Entity("JWTSampleProject.Models.Product", b =>
                 {
@@ -47,7 +68,8 @@ namespace JWTSampleProject.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -55,6 +77,29 @@ namespace JWTSampleProject.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("JWTSampleProject.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<int?>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("RoleId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("JWTSampleProject.Models.User", b =>
@@ -72,14 +117,16 @@ namespace JWTSampleProject.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PassWord")
                         .IsRequired()
@@ -106,8 +153,8 @@ namespace JWTSampleProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -115,6 +162,18 @@ namespace JWTSampleProject.Migrations
                     b.HasKey("UserRoleId");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("JWTSampleProject.Models.Role", b =>
+                {
+                    b.HasOne("JWTSampleProject.Models.Person", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("PersonId");
+                });
+
+            modelBuilder.Entity("JWTSampleProject.Models.Person", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
