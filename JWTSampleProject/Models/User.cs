@@ -16,5 +16,6 @@ namespace JWTSampleProject.Models
         [MaxLength(128), Required]
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
+        public List<Role> Roles { get; set; }
     }
 }

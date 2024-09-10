@@ -43,6 +43,5 @@ namespace JWTSampleProject.Core.Commands
         public int PersonId { get; set; }
         public string PersonName { get; set; }
         public DateTime BirthDate { get; set; }
-        public List<Role> Roles { get; set; }
     }
 }

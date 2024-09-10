@@ -29,7 +29,6 @@ namespace JWTSampleProject.Core.Commands
                 product.PersonId = request.PersonId;
                 product.PersonName = request.PersonName;
                 product.BirthDate = request.BirthDate;
-                product.Roles = request.Roles;
 
                 await _appDbContext.SaveChangesAsync();
             }
@@ -46,6 +45,5 @@ namespace JWTSampleProject.Core.Commands
         public int PersonId { get; set; }
         public string PersonName { get; set; }
         public DateTime BirthDate { get; set; }
-        public List<Role> Roles { get; set; }
     }
 }

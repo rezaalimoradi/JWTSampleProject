@@ -47,6 +47,7 @@ namespace JWTSampleProject.Core.Commands
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public Guid UserId { get; set; }
 
     }
 }

@@ -33,6 +33,7 @@ namespace JWTSampleProject.Core.Commands
             {
                 var role = _mapper.Map<Role>(res);
                 role.RoleName = request.RoleName;
+                role.UserId = request.UserId;
 
                 await _appDbContext.SaveChangesAsync();
             }
@@ -48,5 +49,6 @@ namespace JWTSampleProject.Core.Commands
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public Guid UserId { get; set; }
     }
 }

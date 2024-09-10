@@ -24,7 +24,8 @@ namespace JWTSampleProject.Core.Commands
 
             var obj = new Role
             {
-                RoleName = request.RoleName
+                RoleName = request.RoleName,
+                UserId = request.UserId,
             };
 
             await _context.Roles.AddAsync(obj);
@@ -37,5 +38,7 @@ namespace JWTSampleProject.Core.Commands
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public Guid UserId { get; set; }
+
     }
 }

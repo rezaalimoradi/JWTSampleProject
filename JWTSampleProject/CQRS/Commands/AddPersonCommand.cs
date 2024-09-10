@@ -25,8 +25,7 @@ namespace JWTSampleProject.Core.Commands
             var obj = new Person
             {
                 PersonName = request.PersonName,
-                BirthDate = request.BirthDate,
-                Roles = request.Roles
+                BirthDate = request.BirthDate
             };
 
             await _context.Persons.AddAsync(obj);
@@ -40,6 +39,5 @@ namespace JWTSampleProject.Core.Commands
         public int PersonId { get; set; }
         public string PersonName { get; set; }
         public DateTime BirthDate { get; set; }
-        public List<Role> Roles { get; set; }
     }
 }

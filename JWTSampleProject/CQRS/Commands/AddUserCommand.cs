@@ -37,6 +37,10 @@ namespace JWTSampleProject.Core.Commands
 
             await _context.Users.AddAsync(obj);
             await _context.SaveChangesAsync();
+            //foreach (var item in request.Roles)
+            //{
+            //    await _context.
+            //}
         }
     }
 
@@ -52,5 +56,6 @@ namespace JWTSampleProject.Core.Commands
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
+        public List<int> Roles { get; set; }
     }
 }

@@ -8,5 +8,7 @@ namespace JWTSampleProject.Models
         public int RoleId { get; set; }
         [MaxLength(128), Required]
         public string RoleName { get; set; }
+        public Guid UserId { get; set; }
+
     }
 }
