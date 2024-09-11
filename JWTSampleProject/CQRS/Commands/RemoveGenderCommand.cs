@@ -22,12 +22,12 @@ namespace JWTSampleProject.Core.Commands
         {
             var response = new Dictionary<string, string>();
 
-            var obj = _appDbContext.Genders.Find(request.Id);
+            var obj = _appDbContext.Genders.Find(request.GenderId);
 
-            var currentGender = _appDbContext.Genders.Find(request.Id);
+            var currentGender = _appDbContext.Genders.Find(request.GenderId);
             if (obj.GenderId != currentGender.GenderId)
             {
-                response.Add("Error", "This Gender Not Create Your User");
+                response.Add("Error", "This Gender Not Create Your User For Remove");
             }
 
             if (obj != null)
