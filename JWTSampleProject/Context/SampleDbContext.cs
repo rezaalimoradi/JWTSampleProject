@@ -12,6 +12,11 @@ namespace JWTSampleProject.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<Married> Marrieds { get; set; }
+        public DbSet<Province> Provinces { get; set; }
         public SampleDbContext(DbContextOptions<SampleDbContext> options, IConfiguration configuration) : base(options)
         {
         }

@@ -40,7 +40,7 @@ namespace JWTSampleProject.Core.Commands
             }
             else
             {
-                response.Add("Error", "BadRequest");
+                response.Add("Error", "BadRequest For UserRole");
             }
 
         }

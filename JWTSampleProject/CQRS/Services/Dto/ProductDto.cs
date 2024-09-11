@@ -1,5 +1,5 @@
-﻿using JWTSampleProject.Infrastructure.Base;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿
+using JWTSampleProject.Infrastructure.Base;
 
 namespace JWTSampleProject.Services.Dto
 {
