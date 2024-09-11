@@ -5,6 +5,7 @@ namespace JWTSampleProject.Models
     public class Product
     {
         [Key]
+        [Required]
         public Guid ProductId { get; set; }
         public bool IsAvailable { get; set; }
         public string Email { get; set; }

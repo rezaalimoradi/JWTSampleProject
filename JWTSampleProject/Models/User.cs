@@ -5,6 +5,7 @@ namespace JWTSampleProject.Models
     public class User
     {
         [Key]
+        [Required]
         public Guid UserId { get; set; }
         public bool IsActive { get; set; }
         public string Email { get; set; }
