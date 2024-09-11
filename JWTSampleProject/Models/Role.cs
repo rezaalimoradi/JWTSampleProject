@@ -4,6 +4,7 @@ namespace JWTSampleProject.Models
 {
     public class Role
     {
+        [Required]
         [Key]
         public int RoleId { get; set; }
         [MaxLength(128), Required]
