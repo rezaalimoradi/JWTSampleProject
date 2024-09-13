@@ -46,6 +46,5 @@ namespace JWTSampleProject.Core.Commands
     public class RemoveReligionCommand : IRequest
     {
         public int ReligionId { get; set; }
-        public string ReligionName { get; set; }
     }
 }

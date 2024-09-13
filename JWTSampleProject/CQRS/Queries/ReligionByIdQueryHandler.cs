@@ -18,7 +18,7 @@ namespace JWTSampleProject.CQRS.Queries
         }
         public async Task<Religion> Handle(ReligionByIdQueryInputModel request, CancellationToken cancellationToken)
         {
-            var religion = await _context.Countries.FindAsync(request.ReligionId);
+            var religion = await _context.Religions.FindAsync(request.ReligionId);
             var res = _mapper.Map<Religion>(religion);
             return res;
         }

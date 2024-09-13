@@ -21,7 +21,7 @@ namespace JWTSampleProject.Core.Commands
         public async Task Handle(UpdateReligionCommand request, CancellationToken cancellationToken)
         {
             var response = new Dictionary<string, string>();
-            var res = _appDbContext.Countries.Find(request.ReligionId);
+            var res = _appDbContext.Religions.Find(request.ReligionId);
 
             //var currentUser = _appDbContext.Users.Find(request.Id);
             //if (res.UserId != currentUser.UserId)
