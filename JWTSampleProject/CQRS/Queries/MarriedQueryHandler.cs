@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class MarriedQueryHandler : IRequestHandler<MarriedQueryInputModel, Married>
+    public class MarriedQueryHandler : IRequestHandler<MarriedQueryInputModel, List<MarriedDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Married> Handle(MarriedQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<MarriedDto>> Handle(MarriedQueryInputModel request, CancellationToken cancellationToken)
         {
             var married = await _context.Marrieds.FirstAsync();
-            var res = _mapper.Map<Married>(married);
+            var res = _mapper.Map<List<MarriedDto>>(married);
             return res;
         }
     }

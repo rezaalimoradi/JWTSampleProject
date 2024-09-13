@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Infrastructure.Dto;
 using JWTSampleProject.Context;
 using JWTSampleProject.CQRS.InputModel;
 using JWTSampleProject.Models;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class UserQueryHandler : IRequestHandler<UserQueryInputModel, List<User>>
+    public class UserQueryHandler : IRequestHandler<UserQueryInputModel, List<UserDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,11 +18,11 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<User>> Handle(UserQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<UserDto>> Handle(UserQueryInputModel request, CancellationToken cancellationToken)
         {
             var user = await _context.Users.ToListAsync();
 
-            var result = _mapper.Map<List<User>>(user);
+            var result = _mapper.Map<List<UserDto>>(user);
 
             return result;
         }

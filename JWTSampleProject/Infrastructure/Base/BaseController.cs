@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using JWTSampleProject.Core.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 

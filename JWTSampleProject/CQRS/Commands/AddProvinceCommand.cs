@@ -18,16 +18,23 @@ namespace JWTSampleProject.Core.Commands
 
         public async Task Handle(AddProvinceCommand request, CancellationToken cancellationToken)
         {
+            try
+            {
+                var province = _mapper.Map<Province>(request);
 
-            var province = _mapper.Map<Province>(request);
+                //var obj = new Province
+                //{
+                //    ProvinceName = request.ProvinceName
+                //};
 
-            //var obj = new Province
-            //{
-            //    ProvinceName = request.ProvinceName
-            //};
+                await _context.Provinces.AddAsync(province);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
 
-            await _context.Provinces.AddAsync(province);
-            await _context.SaveChangesAsync();
+                throw;
+            }
         }
     }
 

@@ -18,7 +18,7 @@ namespace JWTSampleProject.CQRS.Queries
         }
         public async Task<Province> Handle(ProvinceByIdQueryInputModel request, CancellationToken cancellationToken)
         {
-            var province = await _context.Countries.FindAsync(request.ProvinceId);
+            var province = await _context.Provinces.FindAsync(request.ProvinceId);
             var res = _mapper.Map<Province>(province);
             return res;
         }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class CountryQueryHandler : IRequestHandler<CountryQueryInputModel, Country>
+    public class CountryQueryHandler : IRequestHandler<CountryQueryInputModel, List<CountryDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,11 +17,13 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Country> Handle(CountryQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<CountryDto>> Handle(CountryQueryInputModel request, CancellationToken cancellationToken)
         {
-            var country = await _context.Countries.FirstAsync();
-            var res = _mapper.Map<Country>(country);
-            return res;
+            var countryTypes = await _context.Countries.ToListAsync();
+
+            var result = _mapper.Map<List<Country>, List<CountryDto>>(countryTypes);
+
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class GenderQueryHandler : IRequestHandler<GenderQueryInputModel, Gender>
+    public class GenderQueryHandler : IRequestHandler<GenderQueryInputModel, List<GenderDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Gender> Handle(GenderQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<GenderDto>> Handle(GenderQueryInputModel request, CancellationToken cancellationToken)
         {
-            var gender = await _context.Genders.FirstAsync();
-            var res = _mapper.Map<Gender>(gender);
+            var gender = await _context.Genders.ToListAsync();
+            var res = _mapper.Map<List<GenderDto>>(gender);
             return res;
         }
     }

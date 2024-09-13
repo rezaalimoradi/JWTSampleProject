@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class ProvinceQueryHandler : IRequestHandler<ProvinceQueryInputModel, Province>
+    public class ProvinceQueryHandler : IRequestHandler<ProvinceQueryInputModel, List<ProvinceDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,11 +17,13 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Province> Handle(ProvinceQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<ProvinceDto>> Handle(ProvinceQueryInputModel request, CancellationToken cancellationToken)
         {
-            var province = await _context.Provinces.FirstAsync();
-            var res = _mapper.Map<Province>(province);
-            return res;
+            var province = await _context.Provinces.ToListAsync();
+
+            var result = _mapper.Map<List<ProvinceDto>>(province);
+
+            return result;
         }
     }
 }

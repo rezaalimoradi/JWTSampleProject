@@ -3,9 +3,7 @@ using MediatR;
 
 namespace JWTSampleProject.CQRS.InputModel
 {
-    public class CountryQueryInputModel : IRequest<Country>
+    public class CountryQueryInputModel : IRequest<List<CountryDto>>
     {
-        public string CountryName { get; set; }
-
     }
 }

@@ -21,7 +21,7 @@ namespace JWTSampleProject.Core.Commands
         public async Task Handle(UpdateProvinceCommand request, CancellationToken cancellationToken)
         {
             var response = new Dictionary<string, string>();
-            var res = _appDbContext.Countries.Find(request.ProvinceId);
+            var res = _appDbContext.Provinces.Find(request.ProvinceId);
 
             //var currentUser = _appDbContext.Users.Find(request.Id);
             //if (res.UserId != currentUser.UserId)

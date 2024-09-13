@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTSampleProject.CQRS.Queries
 {
-    public class ReligionQueryHandler : IRequestHandler<ReligionQueryInputModel, Religion>
+    public class ReligionQueryHandler : IRequestHandler<ReligionQueryInputModel, List<ReligionDto>>
     {
         private readonly ISampleDbContext _context;
         private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ namespace JWTSampleProject.CQRS.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Religion> Handle(ReligionQueryInputModel request, CancellationToken cancellationToken)
+        public async Task<List<ReligionDto>> Handle(ReligionQueryInputModel request, CancellationToken cancellationToken)
         {
-            var religion = await _context.Religions.FirstAsync();
-            var res = _mapper.Map<Religion>(religion);
+            var religion = await _context.Religions.ToListAsync();
+            var res = _mapper.Map<List<ReligionDto>>(religion);
             return res;
         }
     }
