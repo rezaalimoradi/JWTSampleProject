@@ -3,6 +3,7 @@ using Infrastructure.Common;
 using Infrastructure.Common.GlobalExceptionHandling;
 using JWTSampleProject.Behaviors;
 using JWTSampleProject.Context;
+using JWTSampleProject.ControllerFilters;
 using JWTSampleProject.Infrastructure.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,7 +51,15 @@ builder.Services.Configure<Configs>(builder.Configuration.GetSection("Configs"))
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(CacheResourceFilter));
+    //options.Filters.Add(typeof(CustomAuthorizeAttribute));
+    options.Filters.Add(typeof(CustomExceptionFilter));
+    options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+    options.Filters.Add(typeof(RequestLogFilter));
+    options.Filters.Add(typeof(ValidateModelAttribute));
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
