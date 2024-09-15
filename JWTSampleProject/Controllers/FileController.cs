@@ -8,11 +8,11 @@ namespace JWTSampleProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ImageController : ControllerBase
+    public class FileController : ControllerBase
     {
         private readonly SampleDbContext _dbContext;
 
-        public ImageController(SampleDbContext dbContext)
+        public FileController(SampleDbContext dbContext)
         {
 
             _dbContext = dbContext;
