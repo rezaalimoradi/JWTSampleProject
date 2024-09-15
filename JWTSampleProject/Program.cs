@@ -51,6 +51,8 @@ builder.Services.Configure<Configs>(builder.Configuration.GetSection("Configs"))
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(CacheResourceFilter));
