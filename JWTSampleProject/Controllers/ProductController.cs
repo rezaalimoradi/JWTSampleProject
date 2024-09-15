@@ -88,7 +88,6 @@ namespace JWTSampleProject.Controllers
                     StatusCode = true
                 });
             }
-            return null;
         }
 
 
@@ -114,6 +113,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
         {
+            _cache.Remove("product");
             await mediator1.Send(command);
 
             return Ok();
@@ -130,6 +130,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
         {
+            _cache.Remove("product");
             await mediator1.Send(command);
 
             return Ok();
@@ -146,6 +147,7 @@ namespace JWTSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveProduct([FromBody] RemoveProductCommand command)
         {
+            _cache.Remove("product");
             await mediator1.Send(command);
 
             return Ok();

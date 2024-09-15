@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="Files\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
