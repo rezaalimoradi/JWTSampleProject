@@ -17,6 +17,7 @@ namespace JWTSampleProject.Context
         public DbSet<Married> Marrieds { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Religion> Religions { get; set; }
+        public DbSet<ImageEntity> ImageEntities { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         DbSet<T> Set<T>() where T : class;

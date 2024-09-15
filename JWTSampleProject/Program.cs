@@ -39,11 +39,24 @@ Serilog.Log.Logger = new LoggerConfiguration()
           .MinimumLevel.Override("Microsoft.EntityFrameworkCore",
 LogEventLevel.Warning)
           .Enrich.FromLogContext()
-          //.WriteTo.Async(c => c.File("Logs/log-.txt", rollingInterval:RollingInterval.Day))
+          //.WriteTo.(c => c.File("Logs/log-.txt", rollingInterval:RollingInterval.Day))
 #if DEBUG
           //.WriteTo.Async(c => c.Console())
 #endif
           .CreateLogger();
+
+
+
+
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog();
+
+
 
 builder.Host.UseSerilog();
 builder.Services.AddOptions();
@@ -158,10 +171,6 @@ builder.Services.AddDbContext<ISampleDbContext,SampleDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings"));
 
 });
-
-//Jwt 
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 
